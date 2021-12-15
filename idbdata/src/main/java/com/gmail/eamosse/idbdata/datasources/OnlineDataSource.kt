@@ -1,9 +1,18 @@
 package com.gmail.eamosse.idbdata.datasources
 
+import android.util.Log
+import com.gmail.eamosse.idbdata.api.response.*
 import com.gmail.eamosse.idbdata.api.response.CategoryResponse
+import com.gmail.eamosse.idbdata.api.response.MovieResponse
+import com.gmail.eamosse.idbdata.api.response.PopularResponse
+import com.gmail.eamosse.idbdata.api.response.PreviewResponse
 import com.gmail.eamosse.idbdata.api.response.TokenResponse
 import com.gmail.eamosse.idbdata.api.service.MovieService
+import com.gmail.eamosse.idbdata.data.Movie
+import com.gmail.eamosse.idbdata.extensions.parse
+import com.gmail.eamosse.idbdata.extensions.safeCall
 import com.gmail.eamosse.idbdata.utils.Result
+import io.reactivex.Single
 
 /**
  * Manipule les données de l'application en utilisant un web service
@@ -19,23 +28,18 @@ internal class OnlineDataSource(private val service: MovieService) {
      * Sinon, une erreur est survenue
      */
     suspend fun getToken(): Result<TokenResponse> {
-        return try {
+        return safeCall {
             val response = service.getToken()
-            if (response.isSuccessful) {
-                Result.Succes(response.body()!!)
-            } else {
-                Result.Error(
-                    exception = Exception(),
-                    message = response.message(),
-                    code = response.code()
-                )
-            }
-        } catch (e: Exception) {
-            Result.Error(
-                exception = e,
-                message = e.message ?: "No message",
-                code = -1
-            )
+            response.parse()
+        }
+    }
+
+
+
+    suspend fun getMovieById(id:Int): Result<MovieResponse> {
+        return safeCall {
+            val response = service.getMovieById(id)
+            response.parse()
         }
     }
 
@@ -59,5 +63,46 @@ internal class OnlineDataSource(private val service: MovieService) {
             )
         }
     }
+
+suspend fun getPreviews(categoryId: Int, page: Int): Result<List<PreviewResponse.PreviewData>> {
+    return try {
+        val response = service.getPreviews(categoryId, page)
+        if (response.isSuccessful) {
+            Result.Succes(response.body()!!.previews)
+        } else {
+            Result.Error(
+                exception = Exception(),
+                message = response.message(),
+                code = response.code()
+            )
+        }
+    } catch (e: Exception) {
+        Result.Error(
+            exception = e,
+            message = e.message ?: "No message",
+            code = -1
+        )
+    }
 }
 
+    suspend fun getPopulars(page: Int): Result<List<PopularResponse.PopularData>> {
+        return try {
+            val response = service.getPopulars(page)
+            if (response.isSuccessful) {
+                Result.Succes(response.body()!!.populars)
+            } else {
+                Result.Error(
+                    exception = Exception(),
+                    message = response.message(),
+                    code = response.code()
+                )
+            }
+        } catch (e: Exception) {
+            Result.Error(
+                exception = e,
+                message = e.message ?: "No message",
+                code = -1
+            )
+        }
+    }
+}

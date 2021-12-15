@@ -1,28 +1,41 @@
 package com.gmail.eamosse.imdb.ui.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.gmail.eamosse.idbdata.data.Category
-import com.gmail.eamosse.idbdata.data.Token
+import androidx.lifecycle.*
+import com.gmail.eamosse.idbdata.data.*
 import com.gmail.eamosse.idbdata.repository.MovieRepository
 import com.gmail.eamosse.idbdata.utils.Result
+import com.gmail.eamosse.imdb.data.Resource
+import io.reactivex.Single
+import io.reactivex.disposables.Disposable
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
-/**
- * VM permettant de gérer les données de la vue
- */
 class HomeViewModel(private val repository: MovieRepository) : ViewModel() {
 
     private val _token: MutableLiveData<Token> = MutableLiveData()
     val token: LiveData<Token>
         get() = _token
 
+
+    private val _previews: MutableLiveData<List<Preview>> = MutableLiveData()
+    val previews: MutableLiveData<List<Preview>>
+        get() = _previews
+
+    private val _populars: MutableLiveData<List<Popular>> = MutableLiveData()
+    val populars: MutableLiveData<List<Popular>>
+        get() = _populars
+
+    private var currentPage = 1
+    private var lastPage = 1
+
     private val _categories: MutableLiveData<List<Category>> = MutableLiveData()
     val categories: LiveData<List<Category>>
         get() = _categories
+
+    private val _movie: MutableLiveData<Movie> = MutableLiveData()
+    val movie: LiveData<Movie>
+        get() = _movie
 
     private val _error: MutableLiveData<String> = MutableLiveData()
     val error: LiveData<String>
@@ -53,11 +66,98 @@ class HomeViewModel(private val repository: MovieRepository) : ViewModel() {
         }
     }
 
-    fun getCategories() {
+
+
+        fun getMovieById(id: Int) {
+            viewModelScope.launch(Dispatchers.IO) {
+                when (val result = repository.getMovieById(id)) {
+                    is Result.Succes -> {
+                        _movie.postValue(result.data)
+                    }
+                    is Result.Error -> {
+                        _error.postValue(result.message)
+                    }
+                }
+            }
+        }
+    private fun <T, X : List<T>> MutableLiveData<MutableList<T>>.appendList(list: X) {
+        val newList = this.value ?: mutableListOf()
+        newList.addAll(list)
+        this.value = newList
+    }
+
+        fun addNewPreviews(id: Int, page: Int) {
+            viewModelScope.launch(Dispatchers.IO) {
+                when (val result = repository.getPreviews(id, page)) {
+                    is Result.Succes -> {
+                        val dis = _previews.value;
+                        dis.let {
+                            val movies =
+                                listOf(*it!!.toTypedArray(), *result.data.toTypedArray());
+                            _previews.postValue(movies)
+                        }
+
+                    }
+                    is Result.Error -> {
+                        _error.postValue(result.message)
+                    }
+                }
+
+            }
+        }
+
+    fun addNewPopulars(page: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            when (val result = repository.getCategories()) {
+            when (val result = repository.getPopulars(page)) {
                 is Result.Succes -> {
-                    _categories.postValue(result.data)
+                    val dis = _populars.value;
+                    dis.let {
+                        val movies =
+                            listOf(*it!!.toTypedArray(), *result.data.toTypedArray());
+                        _populars.postValue(movies)
+                    }
+
+                }
+                is Result.Error -> {
+                    _error.postValue(result.message)
+                }
+            }
+
+        }
+    }
+
+
+    fun getCategories() {
+            viewModelScope.launch(Dispatchers.IO) {
+                when (val result = repository.getCategories()) {
+                    is Result.Succes -> {
+                        _categories.postValue(result.data)
+                    }
+                    is Result.Error -> {
+                        _error.postValue(result.message)
+                    }
+                }
+            }
+        }
+
+        fun getPreviews(categoryId: Int, page: Int) {
+            viewModelScope.launch(Dispatchers.IO) {
+                when (val result = repository.getPreviews(categoryId, page)) {
+                    is Result.Succes -> {
+                        _previews.postValue(result.data)
+                    }
+                    is Result.Error -> {
+                        _error.postValue(result.message)
+                    }
+                }
+            }
+        }
+
+    fun getPopulars(page: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            when (val result = repository.getPopulars(page)) {
+                is Result.Succes -> {
+                    _populars.postValue(result.data)
                 }
                 is Result.Error -> {
                     _error.postValue(result.message)
@@ -65,4 +165,6 @@ class HomeViewModel(private val repository: MovieRepository) : ViewModel() {
             }
         }
     }
-}
+
+
+    }

@@ -1,18 +1,24 @@
 package com.gmail.eamosse.imdb.ui.home
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.gmail.eamosse.idbdata.data.Category
 import com.gmail.eamosse.imdb.databinding.CategoryListItemBinding
 
-class CategoryAdapter(private val items: List<Category>) :
+class CategoryAdapter(private val items: List<Category>, val handler: (category: Category) -> Unit) :
     RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
     inner class ViewHolder(private val binding: CategoryListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Category) {
             binding.item = item
+
+            binding.root.setOnClickListener {
+                Log.i("IMDB", "Get category")
+                handler(item)
+            }
         }
     }
 
@@ -26,4 +32,5 @@ class CategoryAdapter(private val items: List<Category>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(items[position])
     }
+
 }

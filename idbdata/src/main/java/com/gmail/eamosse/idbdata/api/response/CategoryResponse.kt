@@ -1,7 +1,7 @@
 package com.gmail.eamosse.idbdata.api.response
-
 import com.gmail.eamosse.idbdata.data.Category
 import com.google.gson.annotations.SerializedName
+import kotlin.collections.List
 
 internal data class CategoryResponse(
     @SerializedName("genres")
@@ -15,7 +15,6 @@ internal data class CategoryResponse(
     )
 }
 
-internal fun CategoryResponse.Genre.toCategory() = Category(
-    id = id,
-    name = name
-)
+internal fun CategoryResponse.Genre.toCategory(): Category {
+    return Category(id = id, name = name)
+}
