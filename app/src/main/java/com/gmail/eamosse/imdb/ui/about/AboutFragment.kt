@@ -1,4 +1,4 @@
-package com.gmail.eamosse.imdb.ui.notifications
+package com.gmail.eamosse.imdb.ui.about
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,20 +10,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.gmail.eamosse.imdb.R
 
-class NotificationsFragment : Fragment() {
+class AboutFragment : Fragment() {
 
-    private lateinit var notificationsViewModel: NotificationsViewModel
+    private lateinit var aboutViewModel: AboutViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        notificationsViewModel =
-                ViewModelProviders.of(this).get(NotificationsViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_notifications, container, false)
-        val textView: TextView = root.findViewById(R.id.text_notifications)
-        notificationsViewModel.text.observe(viewLifecycleOwner, Observer {
+        aboutViewModel =
+                ViewModelProviders.of(this).get(AboutViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_about, container, false)
+        val textView: TextView = root.findViewById(R.id.text_about)
+        aboutViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
         return root

@@ -1,13 +1,13 @@
-package com.gmail.eamosse.imdb.ui.notifications
+package com.gmail.eamosse.imdb.ui.about
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class NotificationsViewModel : ViewModel() {
+class AboutViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is notifications Fragment"
+        value = "Projet AnneFlix  Kotlin MBDS M2"
     }
     val text: LiveData<String> = _text
 }
