@@ -18,12 +18,12 @@
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="170dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="42dp"
-        android:text="Membre du groupe :"
+        android:layout_width="377dp"
+        android:layout_height="246dp"
+        android:layout_marginTop="60dp"
+        android:text="@string/about"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_about" />
 
@@ -32,9 +32,20 @@
         android:layout_width="170dp"
         android:layout_height="24dp"
         android:layout_marginTop="26dp"
-        android:text="Léo Guillaumet"
+        android:text="Groupe"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="170dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="24dp"
+        android:text="Léo Guillaumet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,5 +12,11 @@
 
     <string name="popular">Popular</string>
     <string name="preview">Preview</string>
+    <string name="about">"Projet étudiant ayant pour object de créer une application utilisant l'api du site themoviedb \n
+    Le projet est réalisé en kotlin
+    \n
+    L'utilisateur peut parcourir les propositions quotidiennes de l'api en fonction d'une catégorie ou parcourir les films les plus populaires \n
+    Il peut égalment regarder les détails d'un film"</string>
+
 
 </resources>

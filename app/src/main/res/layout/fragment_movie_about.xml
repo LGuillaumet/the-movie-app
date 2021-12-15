@@ -18,7 +18,6 @@
             android:id="@+id/movieImg"
             android:layout_width="110dp"
             android:layout_height="139dp"
-            android:contentDescription="TODO"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -41,18 +40,17 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/movieOverview"
-            android:layout_width="349dp"
-            android:layout_height="310dp"
-            android:layout_marginTop="65dp"
+            android:layout_width="369dp"
+            android:layout_height="336dp"
+            android:layout_marginTop="16dp"
             android:text="@{item.overview}"
             android:textColor="#000000"
             android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/movieReleaseDate3"
-            tools:text="Titre" />
+            tools:text="Description" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/movieReleaseDate"
@@ -80,7 +78,7 @@
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/textView2"
             app:layout_constraintTop_toBottomOf="@+id/movieReleaseDate"
-            tools:text="Date" />
+            tools:text="Note" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/movieReleaseDate3"
@@ -116,13 +114,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="21dp"
-            android:text="Date de sortie :"
+            android:text="Note :"
             android:textColor="#000000"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView5"
-            tools:text="Date de sortie :" />
+            tools:text="Note :" />
 
         <TextView
             android:id="@+id/textView5"
@@ -130,13 +128,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
-            android:text="Note :"
+            android:text="Date de sortie :"
             android:textColor="#000000"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView"
-            tools:text="Note:" />
+            tools:text="Date de sortie :" />
 
         <TextView
             android:id="@+id/textView6"
