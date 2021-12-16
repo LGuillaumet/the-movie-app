@@ -1,18 +1,11 @@
 # The Moovie App
+# Membre du groupe : Léo Guillaumet
 
 ## Objectifs fonctionnels  
 Dans ce projet, nous allons créer l'application AnneFlix (The new Netflix). L'objectif est d'exploiter la base de données TheMoovieDB (https://developers.themoviedb.org/3) afin de permettre aux utilisateurs de l'application de visualiser, noter et voir la bande annonce des films de la base de données. 
 
-## Objectifs techniques 
-Techniquement, ce projet devrait nous permettre d'expérimenter de manière plus approfondie les notions vues en cours: 
-- Kotlin
-- Architecture Components 
-- Data Binding
-- Retrofit 
-- Room 
-- .... 
 
-## Quelques librairies à utiliser 
+## librairies à utilisées
 - Navigation-fragment 
 - Hilt : Injection de dépendances 
 - Gson/Moshi : Sérialisation et Désérialisation JSON 
@@ -20,34 +13,30 @@ Techniquement, ce projet devrait nous permettre d'expérimenter de manière plus
 - Picasso/Glide/Coil/ : Pour afficher les images 
 - OkHttp: Client HTTP
 
-## Critères d'acceptance
-- Une seule activité
-- Au moins 5 vues différentes (fragments) + un fragment About qui présente le projet et les membres du groupe
-- Gestion de données via une API et Room
-- Gestion de la navigation avec Navigation-fragment
-- Tests unitaires (Datasource et Repository)
-- Au moins 2 tests instrumentaires par vues
+## Travail réalisé : 
 
+- Affichage des différentes catégories de films.
 
-## Différentes étapes 
-1. Fork le repository.  
+- Fragment Preview qui va  récupérer une liste de films en fonction d'une catégorie de film via la route /discover de l'api TheMoovieDB.
 
-2. Afficher les catégories de films. Les étapes sont décrites [ici](https://github.com/eamosse/the-movie-app/blob/master/home_tuto.md)
+- Fragment Popular qui va récupérer une liste de films populaires via la route /popular de l'api TheMoovieDB.
 
-3. Afficher les films d'une catégorie. Les consignes sont par [ici](https://github.com/eamosse/the-movie-app/blob/master/movie_list.md)
+- Fragment About qui va afficher les différentes infromations liées à l'application.
 
-## Organisation
-- Groupes de 3 à 4 personnes
-- Commits, branches, et pull requests (il n'y aura pas de notes de groupe, le travail de chacun sera évalué principalement sur les commits) 
+- Fragment Dashboard pour afficher les différents options disponibles (uniquement popular pour le moment).
 
-## Rendu
-- Date limite : 30 Novembre 2021 (avant minuit) 
-- Modalités de rendu : Remplir le drive qui vous sera envoyé par mail
-- Ajouté un fichier readme dans lequel vous décrirez 
-    - Le contexte du projet et ses différentes fonctionnalités
-    - La liste des membres du groupe
-    - Captures d'écrans des principales vues 
-    - Vidéos de démonstration de l'application 
+- Fragment MovieAbout qui va récupérer  des informations complémentaires sur un film grâce à son id => Par exemple l'utilisateur clique sur un film dans la liste du fragment preview on récupère son id et on va dans le fragment MovieAbout pour récupérer des informations complémentaires sur ce film.
 
+- Affichage de la liste des films par pagination, quand on va atteindre le dernier élement de la liste on va incrémenter la page de 1 et récupérer de nouveaux films cela donne ainsi un effet d'endless scroll.
+
+## Pouvant être amélioré :
+
+- Le style ainsi que le thème global de l'application.
+
+- L'ajout d'options dans le dashboard (par exemple on pourrait afficher que les films pour adultes grâce au boolean adult de l'api).
+
+- Plus d'informations dans le Fragment MovieAbout ainsi qu'une vidéo trailer du film.
+
+- Permettre l'ajout de films dans une liste de favoris et la récupérer dans un fragment.
 
 
